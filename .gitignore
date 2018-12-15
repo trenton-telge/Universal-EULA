@@ -53,3 +53,8 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/Universal-EULA.iml
+.idea/vcs.xml
