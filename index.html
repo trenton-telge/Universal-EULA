@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal EULA</title>
     <meta name="apple-mobile-web-app-title" content="Universal EULA">
     <meta name="application-name" content="Universal EULA">
@@ -29,6 +30,9 @@
             "url": "https://trenton-telge.github.io/Universal-EULA/"
         }
     </script>
+    <script type="text/javascript">
+
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/img/apple-touch-icon-60x60.png">
@@ -47,16 +51,69 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     <style>
         html, body, div, h1, h2, p, img, a, svg {
-            margin:0;
-            padding:0;
+            margin: 0;
+            padding: 0;
             font-family: 'Roboto Slab', serif;
         }
         body {
             background-color: ghostwhite;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100vw;
+            height: 100vh;
+        }
+        p {
+            color: black;
+            text-align: center;
+        }
+        .fw-text {
+            width: 100vw;
+            font-size: 6vw;
+            min-font-size: 12pt;
+        }
+        .first-el {
+            margin-top:3vh;
+        }
+        .icon-container {
+            display:flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100vw;
+            height: calc(100vw - 9vh);
+            margin-top:3vh;
+            margin-bottom:3vh;
+        }
+        .site-icon {
+            width: 40vw;
+            height: 40vw;
+            max-height: 300px;
+            max-width: 300px;
         }
     </style>
 </head>
 <body>
-
+    <p class="fw-text first-el">Pick the websites you use</p>
+    <div class="icon-container">
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+        <img class="site-icon" src=""  alt="" onclick=""/>
+    </div>
 </body>
 </html>
