@@ -31,6 +31,7 @@
         }
     </script>
     <script type="text/javascript">
+        //Variables for state of service buttons
         let android = false,
             apple = false,
             facebook = false,
@@ -44,6 +45,7 @@
             vimeo = false,
             windows = false,
             youtube = false;
+        //Toggle function for service button states
         function toggleIcon(name) {
             switch (name) {
                 case "android": {
@@ -164,6 +166,22 @@
                     break;
                 }
             }
+        }
+        // TODO Marks permissions given based on services selected
+        function markPermissions(){
+
+        }
+        /* TODO Displays screen defining permissions for the user.
+         * Procedurally generated HTML will fill a blank div
+         * Flip display states of main screen and generated div
+         * Each permission will include -
+         *      Sites using the permission
+         *      A description
+         *      Links to privacy policies
+         *      Unsubscribe links
+         */
+        function displayPermissions(mode){
+
         }
     </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
