@@ -22,6 +22,7 @@
             'content-url': 'index.html' // show this page to offline users
         });
     </script>
+    <!--TODO add image preloading-->
     <script type="application/ld+json">
         {
             "@context": "http://schema.org/",
@@ -45,6 +46,35 @@
             vimeo = false,
             windows = false,
             youtube = false;
+        //Variables for permissions used
+        let NAME = false,
+            BIRTH_DATE = false,
+            FINE_LOCATION = false,
+            COARSE_LOCATION = false,
+            LOCATION_HISTORY = false,
+            CAMERA = false,
+            PHOTOS = false,
+            MICROPHONE = false,
+            RECORDED_AUDIO = false,
+            RACE = false,
+            POLITICAL_VIEWS = false,
+            SMS_HISTORY = false,
+            CALL_HISTORY = false,
+            CONTACTS = false,
+            PURCHASE_HISTORY = false,
+            CREDIT_SCORE = false,
+            SSN = false,
+            CHECKING_ACCOUNT = false,
+            CREDIT_CARD_NUMBER = false,
+            HARDWARE_IDENTIFIERS = false,
+            PHONE_NUMBER = false,
+            ADDRESS = false,
+            IP_ADDRESS = false,
+            BIOMETRIC_DATA = false,
+            RELATIONSHIPS = false,
+            AD_ENGAGEMENT = false,
+            VEHICLE_INFORMATION = false,
+            WEB_HISTORY = false;
         //Toggle function for service button states
         function toggleIcon(name) {
             switch (name) {
