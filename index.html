@@ -105,12 +105,68 @@
             }).catch(_=>{
                 console.log("Birth Date permission already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Fine Location',
+                    severity: 3,
+                    description: 'Fine live GPS location access (accurate to 10-30 feet) is typically used in conjunction with location history to provide advertisers and third parties information on spending habits and daily trends personalized along with your anonymized ID',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Fine Location permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Coarse Location',
+                    severity: 3,
+                    description: 'Coarse live location access (provided by WIFI, bluetooth, or cell triangulation) is typically used in conjunction with location history to provide advertisers and third parties information on spending habits and daily trends personalized along with your anonymized ID',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Coarse Location permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Location History',
+                    severity: 3,
+                    description: 'Location history, typically gathered by GPS, is used to generate trends used to identify spending habits and predict lifestyle choices. This influences a company\'s perception of your social standing, and the data is often retained indefinitely.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Location History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Camera',
+                    severity: 2,
+                    description: 'Hardware camera access is legally and technologically regulated, but companies often skirt the boundaries of the law, using data received from the device to train image recognition AI or build datasets of objects you\'ve taken photos of.',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Camera permission already exists in DB.");
+            });
             /* NAME = false,
              * BIRTH_DATE = false,
-             * TODO FINE_LOCATION = false,
-             * TODO COARSE_LOCATION = false,
-             * TODO LOCATION_HISTORY = false,
-             * TODO CAMERA = false,
+             * FINE_LOCATION = false,
+             * COARSE_LOCATION = false,
+             * LOCATION_HISTORY = false,
+             * CAMERA = false,
              * TODO PHOTOS = false,
              * TODO MICROPHONE = false,
              * TODO RECORDED_AUDIO = false,
