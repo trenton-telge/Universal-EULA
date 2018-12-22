@@ -47,37 +47,6 @@
             vimeo = false,
             windows = false,
             youtube = false;
-        //Variables for permissions used
-        //TODO phase out in preference of IndexedDB entries
-        /*let NAME = false,
-            BIRTH_DATE = false,
-            FINE_LOCATION = false,
-            COARSE_LOCATION = false,
-            LOCATION_HISTORY = false,
-            CAMERA = false,
-            PHOTOS = false,
-            MICROPHONE = false,
-            RECORDED_AUDIO = false,
-            RACE = false,
-            POLITICAL_VIEWS = false,
-            SMS_HISTORY = false,
-            CALL_HISTORY = false,
-            CONTACTS = false,
-            PURCHASE_HISTORY = false,
-            CREDIT_SCORE = false,
-            SSN = false,
-            CHECKING_ACCOUNT = false,
-            CREDIT_CARD_NUMBER = false,
-            HARDWARE_IDENTIFIERS = false,
-            PHONE_NUMBER = false,
-            ADDRESS = false,
-            IP_ADDRESS = false,
-            BIOMETRIC_DATA = false,
-            RELATIONSHIPS = false,
-            AD_ENGAGEMENT = false,
-            VEHICLE_INFORMATION = false,
-            WEB_HISTORY = false;*/
-
         (function() {
             'use strict';
 
@@ -94,23 +63,79 @@
                     permissionsOS.createIndex('name', 'name', {unique: true});
                     permissionsOS.createIndex('severity', 'severity', {unique: false});
                     permissionsOS.createIndex('description', 'description');
-                    permissionsOS.createIndex('hardware', 'hardware', {unique:false});
+                    permissionsOS.createIndex('hardware', 'hardware', {unique: false});
+                }
+                if (!upgradeDb.objectStoreNames.contains('sites')) {
+                    let sitesOS = upgradeDb.createObjectStore('sites', {keyPath: 'name'});
+                    sitesOS.createIndex('name', 'name', {unique: true});
+                    sitesOS.createIndex('permissions', 'permissions');
+                    sitesOS.createIndex('policyurl', 'policyurl');
+                    sitesOS.createIndex('settingsurl', 'settignsurl');
                 }
             });
-            dbPromise.then(function(db) {
+
+            //TODO add all other permissions below:
+            dbPromise.then(function (db) {
                 const tx = db.transaction('permissions', 'readwrite');
                 const store = tx.objectStore('permissions');
-                const item = {
+                let item = {
                     name: 'Name',
                     severity: 1,
                     description: 'Your full name. This can be used to look up and relate other identifying information along with your birth date, and is often associated with an advertising ID unique to the tracking company.',
                     hardware: false
                 };
-                store.add(item);
+                store.put(item);
                 return tx.complete;
-            }).then(function() {
-                console.log('DB populated.');
+            }).catch(_=>{
+                console.log("Name permission already exists in DB.");
+
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Birth Date',
+                    severity: 1,
+                    description: 'Your date of birth, often used as a secondary factor to differentiate advertising data from other similar names or profiles. Used mainly for targeting.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Birth Date permission already exists in DB.");
+            });
+            /* NAME = false,
+             * BIRTH_DATE = false,
+             * TODO FINE_LOCATION = false,
+             * TODO COARSE_LOCATION = false,
+             * TODO LOCATION_HISTORY = false,
+             * TODO CAMERA = false,
+             * TODO PHOTOS = false,
+             * TODO MICROPHONE = false,
+             * TODO RECORDED_AUDIO = false,
+             * TODO RACE = false,
+             * TODO POLITICAL_VIEWS = false,
+             * TODO SMS_HISTORY = false,
+             * TODO CALL_HISTORY = false,
+             * TODO CONTACTS = false,
+             * TODO PURCHASE_HISTORY = false,
+             * TODO CREDIT_SCORE = false,
+             * TODO SSN = false,
+             * TODO CHECKING_ACCOUNT = false,
+             * TODO CREDIT_CARD_NUMBER = false,
+             * TODO HARDWARE_IDENTIFIERS = false,
+             * TODO PHONE_NUMBER = false,
+             * TODO ADDRESS = false,
+             * TODO IP_ADDRESS = false,
+             * TODO BIOMETRIC_DATA = false,
+             * TODO RELATIONSHIPS = false,
+             * TODO AD_ENGAGEMENT = false,
+             * TODO VEHICLE_INFORMATION = false,
+             * TODO WEB_HISTORY = false;
+             */
+
+            //TODO add sites as so:
+
         })();
         //Toggle function for service button states
         function toggleIcon(name) {
