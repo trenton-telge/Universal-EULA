@@ -161,19 +161,117 @@
             }).catch(_=>{
                 console.log("Camera permission already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Photos',
+                    severity: 3,
+                    description: 'Photo access can be used to train AI models for image recognition, build location histories based on GPS EXIF data, or add to advertising profiles based on machine-recognizable objects.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Photos permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Microphone',
+                    severity: 3,
+                    description: 'Microphone access is generally used passively to provide assistant services through Cortana, Google Assistant, Siri, or Alexa. Search history, along with recordings are used to generate an advertising profile. Voice prints are also generated in some cases as a form of biometric authentication.',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Microphone permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Recorded Audio',
+                    severity: 3,
+                    description: 'Access to recorded audio files cna be used to train voice recognition profiles, as well as extract speech data to build targeted advertising profiles',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Recorded Audio permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Race',
+                    severity: 1,
+                    description: 'Race is often used for coarse advertisement targeting and verification of identity when multiple profiles coincide.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Race permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Political Views',
+                    severity: 2,
+                    description: 'Political views are most often a derived data point, but can be collected discreetly by interest filtering in sites such as dating apps or rich profiles. This information is used to target advertising and news, as well as some user interface elements.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Political Views permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'SMS History',
+                    severity: 3,
+                    description: 'SMS History allows access to all text, images, videos, and voice data sent over SMS or MMS. This can be used to determine relationships, likes, dislikes, other accounts, purchases, and personally identifying information. ',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("SMS History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Call History',
+                    severity: 2,
+                    description: 'Call history is less severe than SMS history, allowing only access to metadata such as participating parties and call length, rather than recordings of content.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Call History permission already exists in DB.");
+            });
             /* NAME = false,
              * BIRTH_DATE = false,
              * FINE_LOCATION = false,
              * COARSE_LOCATION = false,
              * LOCATION_HISTORY = false,
              * CAMERA = false,
-             * TODO PHOTOS = false,
-             * TODO MICROPHONE = false,
-             * TODO RECORDED_AUDIO = false,
-             * TODO RACE = false,
-             * TODO POLITICAL_VIEWS = false,
-             * TODO SMS_HISTORY = false,
-             * TODO CALL_HISTORY = false,
+             * PHOTOS = false,
+             * MICROPHONE = false,
+             * RECORDED_AUDIO = false,
+             * RACE = false,
+             * POLITICAL_VIEWS = false,
+             * SMS_HISTORY = false,
+             * CALL_HISTORY = false,
              * TODO CONTACTS = false,
              * TODO PURCHASE_HISTORY = false,
              * TODO CREDIT_SCORE = false,
