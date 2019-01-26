@@ -365,7 +365,7 @@
                 let item = {
                     name: 'Social Security Number',
                     severity: 3,
-                    description: 'An application with access to your Social Security Number ',
+                    description: 'This one is pretty self-explanatory; an application with access to your Social Security number can see your unique SSN',
                     hardware: false
                 };
                 store.put(item);
@@ -393,7 +393,7 @@
                 let item = {
                     name: 'Credit Card Number',
                     severity: 2,
-                    description: '',
+                    description: 'This lets companies see and sell your credit card information',
                     hardware: false
                 };
                 store.put(item);
@@ -421,7 +421,7 @@
                 let item = {
                     name: 'Phone Number',
                     severity: 1,
-                    description: '',
+                    description: 'This lets a company see and sell your phone number, which can be sold to spam call companies',
                     hardware: false
                 };
                 store.put(item);
@@ -435,7 +435,7 @@
                 let item = {
                     name: 'Address',
                     severity: 2,
-                    description: '',
+                    description: 'Companies with access to your address information can sell this information to companies that want to target you with ads via mail',
                     hardware: false
                 };
                 store.put(item);
@@ -448,8 +448,8 @@
                 const store = tx.objectStore('permissions');
                 let item = {
                     name: 'IP Address',
-                    severity: 2,
-                    description: '',
+                    severity: 1,
+                    description: 'Companies with access to your IP address know the coarse location of your device, as well as whether or not you use a router, your ZIP code, and area code, unless using a VPN',
                     hardware: false
                 };
                 store.put(item);
