@@ -620,24 +620,54 @@
             max-width: 150px;
             margin: 15px;
         }
+        #home, #results-universal {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+        #home {
+            display: flex;
+        }
+        #results-universal {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <p class="fw-text first-el">Pick the websites you use</p>
-    <div class="icon-container">
-        <img class="site-icon" id="icon-android" src="./img/sites/android.png"  alt="Android" onclick="toggleIcon('android');"/>
-        <img class="site-icon" id="icon-apple" src="./img/sites/apple.png"  alt="Apple" onclick="toggleIcon('apple');"/>
-        <img class="site-icon" id="icon-facebook" src="./img/sites/facebook.png"  alt="Facebook" onclick="toggleIcon('facebook');"/>
-        <img class="site-icon" id="icon-instagram" src="./img/sites/instagram.png"  alt="Instagram" onclick="toggleIcon('instagram');"/>
-        <img class="site-icon" id="icon-linkedin" src="./img/sites/linkedin.png"  alt="LinkedIn" onclick="toggleIcon('linkedin');"/>
-        <img class="site-icon" id="icon-paypal" src="./img/sites/paypal.png"  alt="PayPal" onclick="toggleIcon('paypal');"/>
-        <img class="site-icon" id="icon-pinterest" src="./img/sites/pinterest.png"  alt="Pinterest" onclick="toggleIcon('pinterest');"/>
-        <img class="site-icon" id="icon-soundcloud" src="./img/sites/soundcloud.png" alt="SoundCloud" onclick="toggleIcon('soundcloud');"/>
-        <img class="site-icon" id="icon-tumblr" src="./img/sites/tumblr.png"  alt="Tumblr" onclick="toggleIcon('tumblr');"/>
-        <img class="site-icon" id="icon-twitter" src="./img/sites/twitter.png"  alt="Twitter" onclick="toggleIcon('twitter');"/>
-        <img class="site-icon" id="icon-vimeo" src="./img/sites/vimeo.png"  alt="Vimeo" onclick="toggleIcon('vimeo');"/>
-        <img class="site-icon" id="icon-windows" src="./img/sites/windows.png"  alt="Windows" onclick="toggleIcon('windows');"/>
-        <img class="site-icon" id="icon-youtube" src="./img/sites/youtube.png"  alt="YouTube" onclick="toggleIcon('youtube');"/>
+    <div id="home">
+        <p class="fw-text first-el">Pick the websites you use</p>
+        <div class="icon-container">
+            <img class="site-icon" id="icon-android" src="./img/sites/android.png"  alt="Android" onclick="toggleIcon('android');"/>
+            <img class="site-icon" id="icon-apple" src="./img/sites/apple.png"  alt="Apple" onclick="toggleIcon('apple');"/>
+            <img class="site-icon" id="icon-facebook" src="./img/sites/facebook.png"  alt="Facebook" onclick="toggleIcon('facebook');"/>
+            <img class="site-icon" id="icon-instagram" src="./img/sites/instagram.png"  alt="Instagram" onclick="toggleIcon('instagram');"/>
+            <img class="site-icon" id="icon-linkedin" src="./img/sites/linkedin.png"  alt="LinkedIn" onclick="toggleIcon('linkedin');"/>
+            <img class="site-icon" id="icon-paypal" src="./img/sites/paypal.png"  alt="PayPal" onclick="toggleIcon('paypal');"/>
+            <img class="site-icon" id="icon-pinterest" src="./img/sites/pinterest.png"  alt="Pinterest" onclick="toggleIcon('pinterest');"/>
+            <img class="site-icon" id="icon-soundcloud" src="./img/sites/soundcloud.png" alt="SoundCloud" onclick="toggleIcon('soundcloud');"/>
+            <img class="site-icon" id="icon-tumblr" src="./img/sites/tumblr.png"  alt="Tumblr" onclick="toggleIcon('tumblr');"/>
+            <img class="site-icon" id="icon-twitter" src="./img/sites/twitter.png"  alt="Twitter" onclick="toggleIcon('twitter');"/>
+            <img class="site-icon" id="icon-vimeo" src="./img/sites/vimeo.png"  alt="Vimeo" onclick="toggleIcon('vimeo');"/>
+            <img class="site-icon" id="icon-windows" src="./img/sites/windows.png"  alt="Windows" onclick="toggleIcon('windows');"/>
+            <img class="site-icon" id="icon-youtube" src="./img/sites/youtube.png"  alt="YouTube" onclick="toggleIcon('youtube');"/>
+        </div>
+    </div>
+    <div id="results-universal">
+        <div id="results-sites">
+
+        </div>
+        <div id="results-permissions">
+
+        </div>
+        <div id="results-tabs">
+
+        </div>
     </div>
 </body>
 </html>
