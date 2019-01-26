@@ -48,6 +48,7 @@
             vimeo = false,
             windows = false,
             youtube = false;
+        //TODO add permissions booleans
         (function() {
             'use strict';
 
@@ -259,6 +260,20 @@
             }).catch(_=>{
                 console.log("Call History permission already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Contacts',
+                    severity: 1,
+                    description: 'Access to contacts is used to build the base data used to cross-reference anonymized data sets and correlate between different providers, as well as determine interpersonal relationships.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Contacts permission already exists in DB.");
+            });
             /* NAME = false,
              * BIRTH_DATE = false,
              * FINE_LOCATION = false,
@@ -272,7 +287,7 @@
              * POLITICAL_VIEWS = false,
              * SMS_HISTORY = false,
              * CALL_HISTORY = false,
-             * TODO CONTACTS = false,
+             * CONTACTS = false,
              * TODO PURCHASE_HISTORY = false,
              * TODO CREDIT_SCORE = false,
              * TODO SSN = false,
@@ -416,7 +431,45 @@
         }
         // TODO Marks permissions given based on services selected
         function markPermissions(){
+            if (android) {
 
+            }
+            if (apple) {
+
+            }
+            if (facebook) {
+
+            }
+            if (instagram) {
+
+            }
+            if (linkedin) {
+
+            }
+            if (paypal) {
+
+            }
+            if (pinterest) {
+
+            }
+            if (soundcloud) {
+
+            }
+            if (tumblr) {
+
+            }
+            if (twitter) {
+
+            }
+            if (vimeo) {
+
+            }
+            if (windows) {
+
+            }
+            if (youtube) {
+
+            }
         }
         /* TODO Displays screen defining permissions for the user.
          * Procedurally generated HTML will fill a blank div
