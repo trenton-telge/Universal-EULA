@@ -462,8 +462,8 @@
                 const store = tx.objectStore('permissions');
                 let item = {
                     name: 'Biometric Data',
-                    severity: 3,
-                    description: '',
+                    severity: 1,
+                    description: 'A company with access to your biometric data can see anything biometric you may use to login, such as fingerprint or face. These are usually encrypted and stored locally, meaning it usually never leaves your device.',
                     hardware: false
                 };
                 store.put(item);
@@ -477,7 +477,7 @@
                 let item = {
                     name: 'Relationships',
                     severity: 2,
-                    description: '',
+                    description: 'Having access to your Relationships means companies can see who you frequently fraternize with, including significant others, close friends, acquaintances, and family members.',
                     hardware: false
                 };
                 store.put(item);
@@ -491,7 +491,7 @@
                 let item = {
                     name: 'Ad Engagement',
                     severity: 1,
-                    description: '',
+                    description: 'Ad engagement determines when you click on targeted advertisements. Companies like Google can use this ad to view a multitude of things, such as coarse location and what interests you have, so it can target you with better advertisements.',
                     hardware: false
                 };
                 store.put(item);
@@ -505,7 +505,7 @@
                 let item = {
                     name: 'Vehicle Information',
                     severity: 2,
-                    description: '',
+                    description: 'A company gains access to your Vehicle Information by viewing when you link your device to a Bluetooth receiver in your car. This allows them to see the make and model car you have, and the car itself can see call states, call logs, and in some cases even text messages.',
                     hardware: false
                 };
                 store.put(item);
@@ -519,7 +519,7 @@
                 let item = {
                     name: 'Web History',
                     severity: 2,
-                    description: '',
+                    description: 'Companies with access to your web history can see sites you frequent, including bookmarked pages.',
                     hardware: false
                 };
                 store.put(item);
@@ -527,36 +527,6 @@
             }).catch(_=>{
                 console.log("Web History permission already exists in DB.");
             });
-            /* NAME = false,
-             * BIRTH_DATE = false,
-             * FINE_LOCATION = false,
-             * COARSE_LOCATION = false,
-             * LOCATION_HISTORY = false,
-             * CAMERA = false,
-             * PHOTOS = false,
-             * MICROPHONE = false,
-             * RECORDED_AUDIO = false,
-             * RACE = false,
-             * POLITICAL_VIEWS = false,
-             * SMS_HISTORY = false,
-             * CALL_HISTORY = false,
-             * CONTACTS = false,
-             * PURCHASE_HISTORY = false,
-             * CREDIT_SCORE = false,
-             * SSN = false,
-             * CHECKING_ACCOUNT = false,
-             * CREDIT_CARD_NUMBER = false,
-             * HARDWARE_IDENTIFIERS = false,
-             * PHONE_NUMBER = false,
-             * ADDRESS = false,
-             * IP_ADDRESS = false,
-             * BIOMETRIC_DATA = false,
-             * RELATIONSHIPS = false,
-             * AD_ENGAGEMENT = false,
-             * VEHICLE_INFORMATION = false,
-             * WEB_HISTORY = false;
-             */
-
             //TODO add sites as so:
 
         })();
