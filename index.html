@@ -48,13 +48,40 @@
             vimeo = false,
             windows = false,
             youtube = false;
-        //TODO add permissions booleans
+
+        let NAME = false,
+            BIRTH_DATE = false,
+            FINE_LOCATION = false,
+            COARSE_LOCATION = false,
+            CAMERA = false,
+            PHOTOS = false,
+            MICROPHONE = false,
+            RECORDED_AUDIO = false,
+            RACE = false,
+            POLITICAL_VIEWS = false,
+            SMS_HISTPRY = false,
+            CALL_HISTORY = false,
+            CONTACTS = false,
+            PURCHASE_HISTORY = false,
+            CREDIT_SCORE = false,
+            SSN = false,
+            CHECKING_ACCOUNT = false,
+            CREDIT_CARD_NUMBER = false,
+            HARDWARE_IDENTIFIRES = false,
+            PHONE_NUMBER = false,
+            ADDRESS = false,
+            IP_ADDRESS = false,
+            BIOMETRIC_DATA = false,
+            RELATIONSHIPS = false,
+            AD_ENGAGEMENT = false,
+            VEHICLE_INFORMATION = false,
+            WEB_HISTORY = false;
+
         (function() {
             'use strict';
 
             //check for support for IndexedDB
             if (!('indexedDB' in window)) {
-                //TODO display error modal
                 alert("This browser is too old to run critical backend functionality of this app. Download Google Chrome for a better browsing experience.");
                 return;
             }
@@ -75,8 +102,6 @@
                     sitesOS.createIndex('settingsurl', 'settignsurl');
                 }
             });
-
-            //TODO add all other permissions below:
             dbPromise.then(function (db) {
                 const tx = db.transaction('permissions', 'readwrite');
                 const store = tx.objectStore('permissions');
