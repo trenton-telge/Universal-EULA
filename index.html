@@ -55,7 +55,6 @@
             ]
         });
     </script>
-    <!--TODO add image preloading-->
     <script type="application/ld+json">
         {
             "@context": "http://schema.org/",
@@ -67,6 +66,8 @@
     <script src="./idb.js" type="text/javascript"></script>
     <script type="text/javascript">
         //Variables for state of service buttons
+        import * as idb from "./idb";
+
         let android = false,
             apple = false,
             facebook = false,
@@ -527,10 +528,7 @@
             }).catch(_=>{
                 console.log("Web History permission already exists in DB.");
             });
-            //TODO add sites as so:
-
         })();
-        //Toggle function for service button states
         function toggleIcon(name) {
             switch (name) {
                 case "android": {
