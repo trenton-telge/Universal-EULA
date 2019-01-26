@@ -331,6 +331,20 @@
             }).catch(_=>{
                 console.log("Contacts permission already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Purchase History',
+                    severity: 2,
+                    description: 'Purchase History allows access to any transactions made from your account.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(_=>{
+                console.log("Purchase History permission already exists in DB.");
+            });
             /* NAME = false,
              * BIRTH_DATE = false,
              * FINE_LOCATION = false,
@@ -345,7 +359,7 @@
              * SMS_HISTORY = false,
              * CALL_HISTORY = false,
              * CONTACTS = false,
-             * TODO PURCHASE_HISTORY = false,
+             * PURCHASE_HISTORY = false,
              * TODO CREDIT_SCORE = false,
              * TODO SSN = false,
              * TODO CHECKING_ACCOUNT = false,
