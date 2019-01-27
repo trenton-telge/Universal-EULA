@@ -560,6 +560,36 @@
             }).catch(function () {
                 console.log("Service \"Apple\" already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Facebook',
+                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://www.facebook.com/policy.php',
+                    settingsurl: 'https://www.facebook.com/settings',
+                    description: 'Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. They deal primarily in social media services and advertising. Facebook holds Messenger, WhatsApp, and Instagram, among others under its umbrella brand.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Android\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Instagram',
+                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://myaccount.google.com/security',
+                    description: 'Android is a mobile operating system developed by Google.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Android\" already exists in DB.");
+            });
 
 
         })();
