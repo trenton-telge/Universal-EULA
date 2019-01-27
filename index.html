@@ -848,8 +848,7 @@
                     break;
                 }
             }
-        }
-        // TODO Marks permissions given based on services selected
+        };
         function markPermissions(){
             if (android) {
                 NAME=true;
@@ -886,7 +885,7 @@
                 NAME=true;
                 BIRTH_DATE=true;
                 FINE_LOCATION=false;
-                COARSE_LOCATION=false
+                COARSE_LOCATION=false;
                 CAMERA=false;
                 PHOTOS=false;
                 MICROPHONE=false;
@@ -905,7 +904,7 @@
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=false;
-                BIOMETRIC_DATA=false
+                BIOMETRIC_DATA=false;
                 RELATIONSHIPS=false;
                 AD_ENGAGEMENT=false;
                 VEHICLE_INFORMATION=false;
@@ -913,18 +912,147 @@
             }
             if (facebook) {
                 NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (instagram) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (linkedin) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=false;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (paypal) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
             }
             if (pinterest) {
                 NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=false;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
             }
             if (soundcloud) {
                 NAME=true;
@@ -945,16 +1073,6 @@
                 NAME=true;
             }
         }
-        /* TODO Displays screen defining permissions for the user.
-         * Procedurally generated HTML will fill a blank div
-         * Flip display states of main screen and generated div
-         * Each permission will include -
-         *      Sites using the permission
-         *      A description
-         *      Links to privacy policies
-         *      Unsubscribe links
-         */
-
         function generateTagCloud(array){
 
         }
@@ -1021,6 +1139,7 @@
                                 innerhtml = innerhtml + "</div></div></div>";
                                 return innerhtml;
                             }).then(innerhtml => {
+                                alert(innerhtml);
                                 document.getElementById("results-permissions").innerHTML = document.getElementById("results-permissions").innerHTML + innerhtml;
                             });
                         }
@@ -1031,12 +1150,239 @@
                     document.getElementById("results-sites").style.display = "flex";
                     document.getElementById("results-permissions").style.display = "none";
                     if (!document.getElementById("results-sites").innerHTML.includes("<")){
-                        //TODO generate sites cards
                         let innerhtml = "";
                         if (android){
                             dbPromise.then(db => {
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Android");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (apple){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Apple");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (facebook){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Facebook");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (instagram){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Instagram");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (linkedin){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("LinkedIn");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (paypal){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("PayPal");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (pinterest){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Pinterest");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (soundcloud){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Soundcloud");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (tumblr){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Tumblr");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (twitter){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Twitter");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (vimeo){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Vimeo");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (windows){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Windows");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                            });
+                        }
+                        if (youtube){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Youtube");
                             }).then(obj => {
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
