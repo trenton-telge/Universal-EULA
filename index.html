@@ -535,7 +535,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Android',
-                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://policies.google.com/privacy?hl=en',
                     settingsurl: 'https://myaccount.google.com/security',
                     description: 'Android is a mobile operating system developed by Google.'
@@ -565,7 +565,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Facebook',
-                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://www.facebook.com/policy.php',
                     settingsurl: 'https://www.facebook.com/settings',
                     description: 'Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. They deal primarily in social media services and advertising. Facebook holds Messenger, WhatsApp, and Instagram, among others under its umbrella brand.'
@@ -580,7 +580,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Instagram',
-                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://help.instagram.com/155833707900388',
                     settingsurl: 'https://www.instagram.com/accounts/privacy_and_security/',
                     description: 'Instagram is a photo and video-sharing social networking service owned by Facebook, Inc.'
@@ -610,7 +610,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'PayPal',
-                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "LOCATION_HISTORY", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
                     policyurl: 'https://www.paypal.com/us/webapps/mpp/ua/privacy-full',
                     settingsurl: 'https://www.paypal.com/myaccount/settings/security',
                     description: 'PayPal Holdings, Inc. is an American company operating a worldwide online payments system that supports online money transfers and serves as an electronic alternative to traditional paper methods like checks and money orders.'
@@ -634,6 +634,21 @@
                 return tx.complete;
             }).catch(function () {
                 console.log("Service \"Pinterest\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Soundcloud',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://myaccount.google.com/security',
+                    description: 'Android is a mobile operating system developed by Google.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Android\" already exists in DB.");
             });
 
 
