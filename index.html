@@ -848,7 +848,7 @@
                     break;
                 }
             }
-        };
+        }
         function markPermissions(){
             if (android) {
                 NAME=true;
@@ -1166,7 +1166,6 @@
                                 innerhtml = innerhtml + "</div></div></div>";
                                 return innerhtml;
                             }).then(innerhtml => {
-                                alert(innerhtml);
                                 document.getElementById("results-permissions").innerHTML = document.getElementById("results-permissions").innerHTML + innerhtml;
                             });
                         }
@@ -1177,12 +1176,12 @@
                     document.getElementById("results-sites").style.display = "flex";
                     document.getElementById("results-permissions").style.display = "none";
                     if (!document.getElementById("results-sites").innerHTML.includes("<")){
-                        let innerhtml = "";
                         if (android){
                             dbPromise.then(db => {
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Android");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1195,6 +1194,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (apple){
@@ -1202,6 +1202,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Apple");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1214,6 +1215,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (facebook){
@@ -1221,6 +1223,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Facebook");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1233,6 +1236,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (instagram){
@@ -1240,6 +1244,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Instagram");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1252,6 +1257,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (linkedin){
@@ -1259,6 +1265,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("LinkedIn");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1271,6 +1278,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (paypal){
@@ -1278,6 +1286,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("PayPal");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1290,6 +1299,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (pinterest){
@@ -1297,6 +1307,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Pinterest");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1309,6 +1320,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (soundcloud){
@@ -1316,6 +1328,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Soundcloud");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1328,6 +1341,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (tumblr){
@@ -1335,6 +1349,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Tumblr");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1347,6 +1362,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (twitter){
@@ -1354,6 +1370,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Twitter");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1366,6 +1383,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (vimeo){
@@ -1373,6 +1391,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Vimeo");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1385,6 +1404,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (windows){
@@ -1392,6 +1412,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Windows");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1404,6 +1425,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                         if (youtube){
@@ -1411,6 +1433,7 @@
                                 return db.transaction('sites')
                                     .objectStore('sites').get("Youtube");
                             }).then(obj => {
+                                let innerhtml = "";
                                 innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
                                 innerhtml = innerhtml + obj.name;
                                 innerhtml = innerhtml + "</h4><p class=\"blurb\">";
@@ -1423,6 +1446,7 @@
                                 return innerhtml;
                             }).then(innerhtml => {
                                 document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
                             });
                         }
                     }
@@ -1527,7 +1551,6 @@
             justify-content: space-evenly;
             align-items: flex-start;
             align-content: flex-start;
-            margin-top:90vh;
         }
         #results-tabs a {
             flex-grow: 1;
@@ -1575,12 +1598,15 @@
             align-items: center;
             align-content: center;
         }
-        html, footer, body, div, h1, h2, h3, h4, h5, h6, p, img, a, svg {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto Slab', serif;
+        #results-permissions, #results-sites {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+            text-decoration: none;
         }
-
         .card {
             box-shadow: 2px 2px 6px grey;
             border-radius: 8px;
