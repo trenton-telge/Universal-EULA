@@ -670,7 +670,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Twitter',
-                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "PHOTOS", "CONTACTS", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
                     policyurl: 'https://twitter.com/en/privacy',
                     settingsurl: 'https://twitter.com/settings/account',
                     description: 'Twitter is an American online news and social networking service on which users post and interact with messages known as "tweets".'
@@ -700,7 +700,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Windows',
-                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://privacy.microsoft.com/en-us',
                     settingsurl: 'https://account.microsoft.com/security',
                     description: 'Microsoft Windows is a group of several graphical operating system families, all of which are developed, marketed, and sold by Microsoft.'
@@ -1056,21 +1056,181 @@
             }
             if (soundcloud) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=true;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=false;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+
             }
             if (tumblr) {
-                NAME=true;
+                NAME=false;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=false;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+
             }
             if (twitter) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
             }
             if (vimeo) {
                 NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+
             }
             if (windows) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (youtube) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=true;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+
             }
         }
         function generateTagCloud(array){
