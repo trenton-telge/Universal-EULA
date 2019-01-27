@@ -640,15 +640,90 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Soundcloud',
-                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
-                    policyurl: 'https://policies.google.com/privacy?hl=en',
-                    settingsurl: 'https://myaccount.google.com/security',
-                    description: 'Android is a mobile operating system developed by Google.'
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "RECORDED_AUDIO", "HARDWARE_IDENTIFIERS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://soundcloud.com/pages/privacy',
+                    settingsurl: 'https://soundcloud.com/settings',
+                    description: 'SoundCloud is an online audio distribution platform and music sharing website based in Berlin, Germany that enables its users to upload, promote, and share audio.'
                 };
                 store.put(item);
                 return tx.complete;
             }).catch(function () {
-                console.log("Service \"Android\" already exists in DB.");
+                console.log("Service \"Soundcloud\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Tumblr',
+                    permissions: ["COARSE_LOCATION", "CAMERA", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://www.tumblr.com/privacy/en',
+                    settingsurl: 'https://www.tumblr.com/settings/account',
+                    description: 'Tumblr is a microblogging and social networking website founded by David Karp in 2007 and owned by Verizon Media.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Tumblr\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Twitter',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://twitter.com/en/privacy',
+                    settingsurl: 'https://twitter.com/settings/account',
+                    description: 'Twitter is an American online news and social networking service on which users post and interact with messages known as "tweets".'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Twitter\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Vimeo',
+                    permissions: ["NAME", "COARSE_LOCATION", "MICROPHONE", "RECORDED_AUDIO", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://vimeo.com/privacy',
+                    settingsurl: 'https://vimeo.com/settings/account/privacy',
+                    description: 'Vimeo is an ad-free open video platform that is headquartered in New York City. The company provides creators with tools and technology to host, distribute and monetize videos.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Vimeo\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Windows',
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://privacy.microsoft.com/en-us',
+                    settingsurl: 'https://account.microsoft.com/security',
+                    description: 'Microsoft Windows is a group of several graphical operating system families, all of which are developed, marketed, and sold by Microsoft.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Windows\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Youtube',
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://www.youtube.com/account_privacy',
+                    description: 'YouTube, LLC is an American video-sharing website headquartered in San Bruno, California.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Youtube\" already exists in DB.");
             });
 
 
