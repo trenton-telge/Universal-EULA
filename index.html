@@ -768,24 +768,58 @@
         function displayPermissions(mode){
             document.getElementById("home").style.display = "none";
             document.getElementById("results-universal").style.display = "flex";
+            const dbPromise = idb.open('eula-db', 1, upgradeDb => {
+                if (!upgradeDb.objectStoreNames.contains('permissions')) {
+                    let permissionsOS = upgradeDb.createObjectStore('permissions', {keyPath: 'name'});
+                    permissionsOS.createIndex('name', 'name', {unique: true});
+                    permissionsOS.createIndex('severity', 'severity', {unique: false});
+                    permissionsOS.createIndex('description', 'description');
+                    permissionsOS.createIndex('hardware', 'hardware', {unique: false});
+                }
+                if (!upgradeDb.objectStoreNames.contains('sites')) {
+                    let sitesOS = upgradeDb.createObjectStore('sites', {keyPath: 'name'});
+                    sitesOS.createIndex('name', 'name', {unique: true});
+                    sitesOS.createIndex('permissions', 'permissions');
+                    sitesOS.createIndex('policyurl', 'policyurl');
+                    sitesOS.createIndex('settingsurl', 'settingsurl');
+                    sitesOS.createIndex('description', 'description');
+                }
+            });
             switch (mode) {
                 case 1: {
                     document.getElementById("results-sites").style.display = "none";
                     document.getElementById("results-permissions").style.display = "flex";
-                    if (!document.getElementById("results-permissions").innerHTML.toString().contains("<")){
+                    if (!document.getElementById("results-permissions").innerHTML.includes("<")){
                         //TODO generate permissions cards
-
+                        let innerhtml = "";
                     }
                     break;
                 }
                 case 2: {
                     document.getElementById("results-sites").style.display = "flex";
                     document.getElementById("results-permissions").style.display = "none";
-                    if (!document.getElementById("results-sites").innerHTML.toString().contains("<")){
+                    if (!document.getElementById("results-sites").innerHTML.includes("<")){
                         //TODO generate sites cards
-                        let innerHTML = "";
-                        if (android) {
-                            innerHTML.toString().append("");
+                        let innerhtml = "";
+                        if (android){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Android");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                //TODO generate tag cloud
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml
+                            }).then(innerhtml => {
+                                alert(innerhtml);
+                                document.getElementById("results-sites").innerHTML = innerhtml;
+                            });
                         }
                     }
                     break;
@@ -968,6 +1002,7 @@
             display: block;
             max-width:300px;
             margin: 0 auto 20px;
+            text-decoration: none;
         }
         .settings-button p {
             color: white;
@@ -992,6 +1027,7 @@
             margin: 2px 6px 2px 6px;
             padding: 2px 10px 2px 10px;
             border:1px solid black;
+            text-decoration: none;
         }
         .t-3 {
             background-color: #ce0200;
