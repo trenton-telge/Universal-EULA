@@ -535,7 +535,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Android',
-                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://policies.google.com/privacy?hl=en',
                     settingsurl: 'https://myaccount.google.com/security',
                     description: 'Android is a mobile operating system developed by Google.'
@@ -565,7 +565,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Facebook',
-                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://www.facebook.com/policy.php',
                     settingsurl: 'https://www.facebook.com/settings',
                     description: 'Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. They deal primarily in social media services and advertising. Facebook holds Messenger, WhatsApp, and Instagram, among others under its umbrella brand.'
@@ -580,7 +580,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Instagram',
-                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
                     policyurl: 'https://help.instagram.com/155833707900388',
                     settingsurl: 'https://www.instagram.com/accounts/privacy_and_security/',
                     description: 'Instagram is a photo and video-sharing social networking service owned by Facebook, Inc.'
@@ -610,7 +610,7 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'PayPal',
-                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "LOCATION_HISTORY", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
                     policyurl: 'https://www.paypal.com/us/webapps/mpp/ua/privacy-full',
                     settingsurl: 'https://www.paypal.com/myaccount/settings/security',
                     description: 'PayPal Holdings, Inc. is an American company operating a worldwide online payments system that supports online money transfers and serves as an electronic alternative to traditional paper methods like checks and money orders.'
@@ -634,6 +634,21 @@
                 return tx.complete;
             }).catch(function () {
                 console.log("Service \"Pinterest\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Soundcloud',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://myaccount.google.com/security',
+                    description: 'Android is a mobile operating system developed by Google.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Android\" already exists in DB.");
             });
 
 
@@ -762,43 +777,200 @@
         // TODO Marks permissions given based on services selected
         function markPermissions(){
             if (android) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=true;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
 
             }
             if (apple) {
-
+                NAME=true;
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=false
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=false;
+                BIOMETRIC_DATA=false
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=false;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=false;
             }
             if (facebook) {
-
+                NAME=true;
+                BIRTH_DATE=false
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (instagram) {
-
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (linkedin) {
-
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true
+                CAMERA=false;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=false;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
             }
             if (paypal) {
-
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
             }
             if (pinterest) {
-
+                NAME=true;
             }
             if (soundcloud) {
-
+                NAME=true;
             }
             if (tumblr) {
-
+                NAME=true;
             }
             if (twitter) {
-
+                NAME=true;
             }
             if (vimeo) {
-
+                NAME=true;
             }
             if (windows) {
-
+                NAME=true;
             }
             if (youtube) {
-
+                NAME=true;
             }
         }
         /* TODO Displays screen defining permissions for the user.
