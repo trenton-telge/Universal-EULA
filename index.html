@@ -773,8 +773,7 @@
                     break;
                 }
             }
-        }
-        // TODO Marks permissions given based on services selected
+        };
         function markPermissions(){
             if (android) {
                 NAME=true;
@@ -811,7 +810,7 @@
                 NAME=true;
                 BIRTH_DATE=true;
                 FINE_LOCATION=false;
-                COARSE_LOCATION=false
+                COARSE_LOCATION=false;
                 CAMERA=false;
                 PHOTOS=false;
                 MICROPHONE=false;
@@ -830,7 +829,7 @@
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=false;
-                BIOMETRIC_DATA=false
+                BIOMETRIC_DATA=false;
                 RELATIONSHIPS=false;
                 AD_ENGAGEMENT=false;
                 VEHICLE_INFORMATION=false;
@@ -838,7 +837,7 @@
             }
             if (facebook) {
                 NAME=true;
-                BIRTH_DATE=false
+                BIRTH_DATE=false;
                 FINE_LOCATION=false;
                 COARSE_LOCATION=true;
                 CAMERA=true;
@@ -897,7 +896,7 @@
                 NAME=true;
                 BIRTH_DATE=true;
                 FINE_LOCATION=false;
-                COARSE_LOCATION=true
+                COARSE_LOCATION=true;
                 CAMERA=false;
                 PHOTOS=true;
                 MICROPHONE=false;
@@ -973,16 +972,6 @@
                 NAME=true;
             }
         }
-        /* TODO Displays screen defining permissions for the user.
-         * Procedurally generated HTML will fill a blank div
-         * Flip display states of main screen and generated div
-         * Each permission will include -
-         *      Sites using the permission
-         *      A description
-         *      Links to privacy policies
-         *      Unsubscribe links
-         */
-
         function generateTagCloud(array){
 
         }
@@ -1060,7 +1049,6 @@
                     document.getElementById("results-sites").style.display = "flex";
                     document.getElementById("results-permissions").style.display = "none";
                     if (!document.getElementById("results-sites").innerHTML.includes("<")){
-                        //TODO generate sites cards
                         let innerhtml = "";
                         if (android){
                             dbPromise.then(db => {
