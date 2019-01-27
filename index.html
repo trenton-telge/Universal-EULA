@@ -362,7 +362,7 @@
                 const tx = db.transaction('permissions', 'readwrite');
                 const store = tx.objectStore('permissions');
                 let item = {
-                    name: 'Social Security Number',
+                    name: 'SSN',
                     severity: 3,
                     description: 'This one is pretty self-explanatory; an application with access to your Social Security number can see your unique SSN',
                     hardware: false
@@ -735,6 +735,14 @@
          *      Links to privacy policies
          *      Unsubscribe links
          */
+
+        function generateTagCloud(array){
+
+        }
+        function generateSiteCloud(permission){
+
+        }
+
         function displayPermissions(mode){
             document.getElementById("home").style.display = "none";
             document.getElementById("results-universal").style.display = "flex";
@@ -762,6 +770,41 @@
                     if (!document.getElementById("results-permissions").innerHTML.includes("<")){
                         //TODO generate permissions cards
                         let innerhtml = "";
+                        if (NAME){
+                            dbPromise.then(db => {
+                                return db.transaction('permissions')
+                                    .objectStore('permissions').get("Name");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-lt ";
+                                switch (obj.severity){
+                                    case 1: {
+                                        innerhtml = innerhtml + "t-1\">";
+                                        break;
+                                    }
+                                    case 2: {
+                                        innerhtml = innerhtml + "t-2\">";
+                                        break;
+                                    }
+                                    case 3: {
+                                        innerhtml = innerhtml + "t-3\">";
+                                        break;
+                                    }
+                                    default: {
+                                        alert("Something went wrong.");
+                                        break;
+                                    }
+                                }
+                                innerhtml = innerhtml + obj.name.toUpperCase().replace(" ", "_");
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateSiteCloud(obj.name.toUpperCase().replace(" ", "_"));
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-permissions").innerHTML = document.getElementById("results-permissions").innerHTML + innerhtml;
+                            });
+                        }
                     }
                     break;
                 }
@@ -783,12 +826,11 @@
                                 innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
                                 innerhtml = innerhtml + obj.settingsurl;
                                 innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
-                                //TODO generate tag cloud
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
                                 innerhtml = innerhtml + "</div></div></div>";
-                                return innerhtml
+                                return innerhtml;
                             }).then(innerhtml => {
-                                alert(innerhtml);
-                                document.getElementById("results-sites").innerHTML = innerhtml;
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
                             });
                         }
                     }
@@ -1010,6 +1052,22 @@
         .t-1 {
             background-color: #00B524;
             color: #103618;
+        }
+        .res-img {
+            width:10vw;
+            min-width:100px;
+            max-width:300px;
+            height:10vw;
+            min-height:100px;
+            max-height:100px;
+        }
+        .card-lt {
+            font-size: calc(18pt + 1vw);
+            text-align:center;
+            border-radius:5px;
+            padding: 2px 10px 2px 10px;
+            border:1px solid black;
+            margin: 2px 20% 20px;
         }
     </style>
 </head>
