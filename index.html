@@ -535,17 +535,33 @@
                 const store = tx.objectStore('sites');
                 let item = {
                     name: 'Android',
-                    permissions: ["foo", "bar"],
-                    policyurl: '',
-                    settingsurl: '',
-                    description: ''
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://myaccount.google.com/security',
+                    description: 'Android is a mobile operating system developed by Google.'
                 };
                 store.put(item);
                 return tx.complete;
             }).catch(function () {
                 console.log("Service \"Android\" already exists in DB.");
-
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Apple',
+                    permissions: ["NAME", "BIRTH_DATE", "PURCHASE_HISTORY", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS"],
+                    policyurl: 'https://www.apple.com/legal/privacy/en-ww/',
+                    settingsurl: 'https://secure3.store.apple.com/shop/account/setup',
+                    description: 'Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Apple\" already exists in DB.");
+            });
+
+
         })();
         function toggleIcon(name) {
             switch (name) {
