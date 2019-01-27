@@ -560,6 +560,81 @@
             }).catch(function () {
                 console.log("Service \"Apple\" already exists in DB.");
             });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Facebook',
+                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://www.facebook.com/policy.php',
+                    settingsurl: 'https://www.facebook.com/settings',
+                    description: 'Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. They deal primarily in social media services and advertising. Facebook holds Messenger, WhatsApp, and Instagram, among others under its umbrella brand.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Facebook\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Instagram',
+                    permissions: ["NAME", "COARSE_LOCATION", "LOCATION_HISTORY", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://help.instagram.com/155833707900388',
+                    settingsurl: 'https://www.instagram.com/accounts/privacy_and_security/',
+                    description: 'Instagram is a photo and video-sharing social networking service owned by Facebook, Inc.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Instagram\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'LinkedIn',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "PHOTOS", "RACE", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://www.linkedin.com/legal/privacy-policy?trk=%7Berror-page%7D-privacy-policy',
+                    settingsurl: 'https://www.linkedin.com/psettings/',
+                    description: 'LinkedIn is a business and employment-oriented service that operates via websites and mobile apps.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"LinkedIn\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'PayPal',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "LOCATION_HISTORY", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://www.paypal.com/us/webapps/mpp/ua/privacy-full',
+                    settingsurl: 'https://www.paypal.com/myaccount/settings/security',
+                    description: 'PayPal Holdings, Inc. is an American company operating a worldwide online payments system that supports online money transfers and serves as an electronic alternative to traditional paper methods like checks and money orders.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"PayPal\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Pinterest',
+                    permissions: ["NAME", "COARSE_LOCATION", "PHOTOS", "PURCHASE_HISTORY", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://policy.pinterest.com/en/privacy-policy',
+                    settingsurl: 'https://www.pinterest.com/settings#security',
+                    description: 'Pinterest, Inc. is a social media web and mobile application company that operates a software system designed to discover information on the World Wide Web, mainly using images and, on a smaller scale, GIFs and videos.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Pinterest\" already exists in DB.");
+            });
 
 
         })();
