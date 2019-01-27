@@ -97,7 +97,7 @@
             SSN = false,
             CHECKING_ACCOUNT = false,
             CREDIT_CARD_NUMBER = false,
-            HARDWARE_IDENTIFIRES = false,
+            HARDWARE_IDENTIFIERS = false,
             PHONE_NUMBER = false,
             ADDRESS = false,
             IP_ADDRESS = false,
@@ -461,7 +461,7 @@
                 const store = tx.objectStore('permissions');
                 let item = {
                     name: 'Biometric Data',
-                    severity: 1,
+                    severity: 3,
                     description: 'A company with access to your biometric data can see anything biometric you may use to login, such as fingerprint or face. These are usually encrypted and stored locally, meaning it usually never leaves your device.',
                     hardware: false
                 };
@@ -869,7 +869,7 @@
                 SSN=true;
                 CHECKING_ACCOUNT=true;
                 CREDIT_CARD_NUMBER=true;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=true;
@@ -900,7 +900,7 @@
                 SSN=false;
                 CHECKING_ACCOUNT=false;
                 CREDIT_CARD_NUMBER=false;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=false;
@@ -929,7 +929,7 @@
                 SSN=false;
                 CHECKING_ACCOUNT=true;
                 CREDIT_CARD_NUMBER=true;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=true;
@@ -957,7 +957,7 @@
                 CREDIT_SCORE=false;
                 SSN=false;
                 CHECKING_ACCOUNT=true;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=true;
@@ -986,7 +986,7 @@
                 SSN=false;
                 CHECKING_ACCOUNT=false;
                 CREDIT_CARD_NUMBER=false;
-                HARDWARE_IDENTIFIRES=false;
+                HARDWARE_IDENTIFIERS=false;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=true;
@@ -1015,7 +1015,7 @@
                 SSN=false;
                 CHECKING_ACCOUNT=true;
                 CREDIT_CARD_NUMBER=true;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=true;
@@ -1044,7 +1044,7 @@
                 SSN=false;
                 CHECKING_ACCOUNT=false;
                 CREDIT_CARD_NUMBER=false;
-                HARDWARE_IDENTIFIRES=true;
+                HARDWARE_IDENTIFIERS=true;
                 PHONE_NUMBER=true;
                 ADDRESS=true;
                 IP_ADDRESS=false;
@@ -1074,10 +1074,93 @@
             }
         }
         function generateTagCloud(array){
-
+            let string = "";
+            if (array.includes("NAME")) {
+                string = string + "<a class=\"tag t-1\"><strong>NAME</strong></a>";
+            }
+            if (array.includes("BIRTH_DATE")) {
+                string = string + "<a class=\"tag t-1\"><strong>BIRTH_DATE</strong></a>";
+            }
+            if (array.includes("FINE_LOCATION")) {
+                string = string + "<a class=\"tag t-3\"><strong>FINE_LOCATION</strong></a>";
+            }
+            if (array.includes("COARSE_LOCATION")) {
+                string = string + "<a class=\"tag t-3\"><strong>COARSE_LOCATION</strong></a>";
+            }
+            if (array.includes("CAMERA")) {
+                string = string + "<a class=\"tag t-2\"><strong>CAMERA</strong></a>";
+            }
+            if (array.includes("PHOTOS")) {
+                string = string + "<a class=\"tag t-3\"><strong>PHOTOS</strong></a>";
+            }
+            if (array.includes("MICROPHONE")) {
+                string = string + "<a class=\"tag t-3\"><strong>MICROPHONE</strong></a>";
+            }
+            if (array.includes("RECORDED_AUDIO")) {
+                string = string + "<a class=\"tag t-3\"><strong>RECORDED_AUDIO</strong></a>";
+            }
+            if (array.includes("RACE")) {
+                string = string + "<a class=\"tag t-1\"><strong>RACE</strong></a>";
+            }
+            if (array.includes("POLITICAL_VIEWS")) {
+                string = string + "<a class=\"tag t-2\"><strong>POLITICAL_VIEWS</strong></a>";
+            }
+            if (array.includes("SMS_HISTORY")) {
+                string = string + "<a class=\"tag t-3\"><strong>SMS_HISTORY</strong></a>";
+            }
+            if (array.includes("CALL_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>CALL_HISTORY</strong></a>";
+            }
+            if (array.includes("CONTACTS")) {
+                string = string + "<a class=\"tag t-1\"><strong>CONTACTS</strong></a>";
+            }
+            if (array.includes("PURCHASE_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>PURCHASE_HISTORY</strong></a>";
+            }
+            if (array.includes("CREDIT_SCORE")) {
+                string = string + "<a class=\"tag t-2\"><strong>CREDIT_SCORE</strong></a>";
+            }
+            if (array.includes("SSN")) {
+                string = string + "<a class=\"tag t-3\"><strong>SSN</strong></a>";
+            }
+            if (array.includes("CHECKING_ACCOUNT")) {
+                string = string + "<a class=\"tag t-3\"><strong>CHECKING_ACCOUNT</strong></a>";
+            }
+            if (array.includes("CREDIT_CARD_NUMBER")) {
+                string = string + "<a class=\"tag t-2\"><strong>CREDIT_CARD_NUMBER</strong></a>";
+            }
+            if (array.includes("HARDWARE_IDENTIFIERS")) {
+                string = string + "<a class=\"tag t-1\"><strong>HARDWARE_IDENTIFIERS</strong></a>";
+            }
+            if (array.includes("PHONE_NUMBER")) {
+                string = string + "<a class=\"tag t-1\"><strong>PHONE_NUMBER</strong></a>";
+            }
+            if (array.includes("ADDRESS")) {
+                string = string + "<a class=\"tag t-2\"><strong>ADDRESS</strong></a>";
+            }
+            if (array.includes("IP_ADDRESS")) {
+                string = string + "<a class=\"tag t-1\"><strong>IP_ADDRESS</strong></a>";
+            }
+            if (array.includes("BIOMETRIC_DATA")) {
+                string = string + "<a class=\"tag t-3\"><strong>BIOMETRIC_DATA</strong></a>";
+            }
+            if (array.includes("RELATIONSHIPS")) {
+                string = string + "<a class=\"tag t-2\"><strong>RELATIONSHIPS</strong></a>";
+            }
+            if (array.includes("AD_ENGAGEMENT")) {
+                string = string + "<a class=\"tag t-1\"><strong>AD_ENGAGEMENT</strong></a>";
+            }
+            if (array.includes("VEHICLE_INFORMATION")) {
+                string = string + "<a class=\"tag t-2\"><strong>VEHICLE_INFORMATION</strong></a>";
+            }
+            if (array.includes("WEB_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>WEB_HISTORY</strong></a>";
+            }
+            return string;
         }
         function generateSiteCloud(permission){
-
+            let string = "";
+            //TODO for site in sites, search db for permission - > if found, add image
         }
 
         function displayPermissions(mode){
