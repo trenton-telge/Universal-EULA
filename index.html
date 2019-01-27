@@ -1056,6 +1056,33 @@
             }
             if (soundcloud) {
                 NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=true;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIRES=true;
+                PHONE_NUMBER=false;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+
             }
             if (tumblr) {
                 NAME=true;
@@ -1139,7 +1166,6 @@
                                 innerhtml = innerhtml + "</div></div></div>";
                                 return innerhtml;
                             }).then(innerhtml => {
-                                alert(innerhtml);
                                 document.getElementById("results-permissions").innerHTML = document.getElementById("results-permissions").innerHTML + innerhtml;
                             });
                         }
