@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal EULA</title>
     <meta name="apple-mobile-web-app-title" content="Universal EULA">
     <meta name="application-name" content="Universal EULA">
     <meta name="msapplication-TileColor" content="#2b5797">
-    <meta name="msapplication-TileImage" content="/img/mstile-144x144.png">
-    <meta name="msapplication-config" content="/img/browserconfig.xml">
+    <meta name="msapplication-TileImage" content="./img/mstile-144x144.png">
+    <meta name="msapplication-config" content="./img/browserconfig.xml">
     <meta property="og:image:width" content="279">
     <meta property="og:image:height" content="279">
     <meta property="og:description" content="Know what privacy you've sold.">
@@ -15,10 +16,43 @@
     <meta property="og:url" content="https://trenton-telge.github.io/Universal-EULA/">
     <meta property="og:image" content="https://trenton-telge.github.io/Universal-EULA/img/og-image.jpg">
     <meta name="theme-color" content="#ffffff">
-    <script src="/upup.min.js"></script>
+    <meta name="description" content="Know what privacy you've sold.">
+    <script src="./upup.min.js"></script>
     <script>
         UpUp.start({
-            'content-url': 'index.html' // show this page to offline users
+            'content-url': 'index.html',
+            'assets': [
+                'manifest.json',
+                './img/mstile-144x144.png',
+                './img/android-chrome-512x512.png',
+                'idb.js',
+                './img/sites/android.png',
+                './img/sites/android-s.png',
+                './img/sites/apple.png',
+                './img/sites/apple-s.png',
+                './img/sites/facebook.png',
+                './img/sites/facebook-s.png',
+                './img/sites/instagram.png',
+                './img/sites/instagram-s.png',
+                './img/sites/linkedin.png',
+                './img/sites/linkedin-s.png',
+                './img/sites/paypal.png',
+                './img/sites/paypal-s.png',
+                './img/sites/pinterest.png',
+                './img/sites/pinterest-s.png',
+                './img/sites/soundcloud.png',
+                './img/sites/soundcloud-s.png',
+                './img/sites/tumblr.png',
+                './img/sites/tumblr-s.png',
+                './img/sites/twitter.png',
+                './img/sites/twitter-s.png',
+                './img/sites/vimeo.png',
+                './img/sites/vimeo-s.png',
+                './img/sites/windows.png',
+                './img/sites/windows-s.png',
+                './img/sites/youtube.png',
+                './img/sites/youtube-s.png'
+            ]
         });
     </script>
     <script type="application/ld+json">
@@ -29,34 +63,1879 @@
             "url": "https://trenton-telge.github.io/Universal-EULA/"
         }
     </script>
+    <script src="./idb.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        let android = false,
+            apple = false,
+            facebook = false,
+            instagram = false,
+            linkedin = false,
+            paypal = false,
+            pinterest = false,
+            soundcloud = false,
+            tumblr = false,
+            twitter = false,
+            vimeo = false,
+            windows = false,
+            youtube = false;
+
+        let NAME = false,
+            BIRTH_DATE = false,
+            FINE_LOCATION = false,
+            COARSE_LOCATION = false,
+            CAMERA = false,
+            PHOTOS = false,
+            MICROPHONE = false,
+            RECORDED_AUDIO = false,
+            RACE = false,
+            POLITICAL_VIEWS = false,
+            SMS_HISTORY = false,
+            CALL_HISTORY = false,
+            CONTACTS = false,
+            PURCHASE_HISTORY = false,
+            CREDIT_SCORE = false,
+            SSN = false,
+            CHECKING_ACCOUNT = false,
+            CREDIT_CARD_NUMBER = false,
+            HARDWARE_IDENTIFIERS = false,
+            PHONE_NUMBER = false,
+            ADDRESS = false,
+            IP_ADDRESS = false,
+            BIOMETRIC_DATA = false,
+            RELATIONSHIPS = false,
+            AD_ENGAGEMENT = false,
+            VEHICLE_INFORMATION = false,
+            WEB_HISTORY = false;
+
+        (function() {
+            'use strict';
+
+            //check for support for IndexedDB
+            if (!('indexedDB' in window)) {
+                alert("This browser is too old to run critical backend functionality of this app. Download Google Chrome for a better browsing experience.");
+                return;
+            }
+
+            const dbPromise = idb.open('eula-db', 1, upgradeDb => {
+                if (!upgradeDb.objectStoreNames.contains('permissions')) {
+                    let permissionsOS = upgradeDb.createObjectStore('permissions', {keyPath: 'name'});
+                    permissionsOS.createIndex('name', 'name', {unique: true});
+                    permissionsOS.createIndex('severity', 'severity', {unique: false});
+                    permissionsOS.createIndex('description', 'description');
+                    permissionsOS.createIndex('hardware', 'hardware', {unique: false});
+                }
+                if (!upgradeDb.objectStoreNames.contains('sites')) {
+                    let sitesOS = upgradeDb.createObjectStore('sites', {keyPath: 'name'});
+                    sitesOS.createIndex('name', 'name', {unique: true});
+                    sitesOS.createIndex('permissions', 'permissions');
+                    sitesOS.createIndex('policyurl', 'policyurl');
+                    sitesOS.createIndex('settingsurl', 'settingsurl');
+                    sitesOS.createIndex('description', 'description');
+                }
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Name',
+                    severity: 1,
+                    description: 'Your full name. This can be used to look up and relate other identifying information along with your birth date, and is often associated with an advertising ID unique to the tracking company.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Name permission already exists in DB.");
+
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Birth Date',
+                    severity: 1,
+                    description: 'Your date of birth, often used as a secondary factor to differentiate advertising data from other similar names or profiles. Used mainly for targeting.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Birth Date permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Fine Location',
+                    severity: 3,
+                    description: 'Fine live GPS location access (accurate to 10-30 feet) is typically used in conjunction with location history to provide advertisers and third parties information on spending habits and daily trends personalized along with your anonymized ID',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Fine Location permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Coarse Location',
+                    severity: 3,
+                    description: 'Coarse live location access (provided by WIFI, bluetooth, or cell triangulation) is typically used in conjunction with location history to provide advertisers and third parties information on spending habits and daily trends personalized along with your anonymized ID',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Coarse Location permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Location History',
+                    severity: 3,
+                    description: 'Location history, typically gathered by GPS, is used to generate trends used to identify spending habits and predict lifestyle choices. This influences a company\'s perception of your social standing, and the data is often retained indefinitely.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Location History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Camera',
+                    severity: 2,
+                    description: 'Hardware camera access is legally and technologically regulated, but companies often skirt the boundaries of the law, using data received from the device to train image recognition AI or build datasets of objects you\'ve taken photos of.',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Camera permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Photos',
+                    severity: 3,
+                    description: 'Photo access can be used to train AI models for image recognition, build location histories based on GPS EXIF data, or add to advertising profiles based on machine-recognizable objects.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Photos permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Microphone',
+                    severity: 3,
+                    description: 'Microphone access is generally used passively to provide assistant services through Cortana, Google Assistant, Siri, or Alexa. Search history, along with recordings are used to generate an advertising profile. Voice prints are also generated in some cases as a form of biometric authentication.',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Microphone permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Recorded Audio',
+                    severity: 3,
+                    description: 'Access to recorded audio files cna be used to train voice recognition profiles, as well as extract speech data to build targeted advertising profiles',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Recorded Audio permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Race',
+                    severity: 1,
+                    description: 'Race is often used for coarse advertisement targeting and verification of identity when multiple profiles coincide.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Race permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Political Views',
+                    severity: 2,
+                    description: 'Political views are most often a derived data point, but can be collected discreetly by interest filtering in sites such as dating apps or rich profiles. This information is used to target advertising and news, as well as some user interface elements.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Political Views permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'SMS History',
+                    severity: 3,
+                    description: 'SMS History allows access to all text, images, videos, and voice data sent over SMS or MMS. This can be used to determine relationships, likes, dislikes, other accounts, purchases, and personally identifying information. ',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("SMS History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Call History',
+                    severity: 2,
+                    description: 'Call history is less severe than SMS history, allowing only access to metadata such as participating parties and call length, rather than recordings of content.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Call History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Contacts',
+                    severity: 1,
+                    description: 'Access to contacts is used to build the base data used to cross-reference anonymized data sets and correlate between different providers, as well as determine interpersonal relationships.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Contacts permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Purchase History',
+                    severity: 2,
+                    description: 'Purchase History allows access to any transactions made from your account.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Purchase History permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Credit Score',
+                    severity: 2,
+                    description: 'Credit Score allows access to credit information',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Credit Score permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'SSN',
+                    severity: 3,
+                    description: 'This one is pretty self-explanatory; an application with access to your Social Security number can see your unique SSN',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Social Security Number permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Checking Account',
+                    severity: 3,
+                    description: 'Having access to your checking account allows for more detailed transaction history, as well as where those transactions are made.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Checking Account permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Credit Card Number',
+                    severity: 2,
+                    description: 'This lets companies see and sell your credit card information',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Credit Card Number permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Hardware Identifiers',
+                    severity: 1,
+                    description: 'An application with Hardware Identifiers access can determine what specifications your device is operating on.',
+                    hardware: true
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Hardware Identifiers permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Phone Number',
+                    severity: 1,
+                    description: 'This lets a company see and sell your phone number, which can be sold to spam call companies',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Phone Number permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Address',
+                    severity: 2,
+                    description: 'Companies with access to your address information can sell this information to companies that want to target you with ads via mail',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Address permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'IP Address',
+                    severity: 1,
+                    description: 'Companies with access to your IP address know the coarse location of your device, as well as whether or not you use a router, your ZIP code, and area code, unless using a VPN',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("IP Address permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Biometric Data',
+                    severity: 3,
+                    description: 'A company with access to your biometric data can see anything biometric you may use to login, such as fingerprint or face. These are usually encrypted and stored locally, meaning it usually never leaves your device.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Biometric Data permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Relationships',
+                    severity: 2,
+                    description: 'Having access to your Relationships means companies can see who you frequently fraternize with, including significant others, close friends, acquaintances, and family members.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Relationships permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Ad Engagement',
+                    severity: 1,
+                    description: 'Ad engagement determines when you click on targeted advertisements. Companies like Google can use this ad to view a multitude of things, such as coarse location and what interests you have, so it can target you with better advertisements.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Ad Engagement permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Vehicle Information',
+                    severity: 2,
+                    description: 'A company gains access to your Vehicle Information by viewing when you link your device to a Bluetooth receiver in your car. This allows them to see the make and model car you have, and the car itself can see call states, call logs, and in some cases even text messages.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Vehicle Information permission already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('permissions', 'readwrite');
+                const store = tx.objectStore('permissions');
+                let item = {
+                    name: 'Web History',
+                    severity: 2,
+                    description: 'Companies with access to your web history can see sites you frequent, including bookmarked pages.',
+                    hardware: false
+                };
+                store.put(item);
+                return tx.complete
+            }).catch(function () {
+                console.log("Web History permission already exists in DB.");
+            });
+
+
+
+
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Android',
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://myaccount.google.com/security',
+                    description: 'Android is a mobile operating system developed by Google.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Android\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Apple',
+                    permissions: ["NAME", "BIRTH_DATE", "PURCHASE_HISTORY", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS"],
+                    policyurl: 'https://www.apple.com/legal/privacy/en-ww/',
+                    settingsurl: 'https://secure3.store.apple.com/shop/account/setup',
+                    description: 'Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Apple\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Facebook',
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://www.facebook.com/policy.php',
+                    settingsurl: 'https://www.facebook.com/settings',
+                    description: 'Facebook, Inc. is an American online social media and social networking service company based in Menlo Park, California. They deal primarily in social media services and advertising. Facebook holds Messenger, WhatsApp, and Instagram, among others under its umbrella brand.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Facebook\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Instagram',
+                    permissions: ["NAME", "COARSE_LOCATION", "CAMERA", "PHOTOS", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://help.instagram.com/155833707900388',
+                    settingsurl: 'https://www.instagram.com/accounts/privacy_and_security/',
+                    description: 'Instagram is a photo and video-sharing social networking service owned by Facebook, Inc.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Instagram\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'LinkedIn',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "PHOTOS", "RACE", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://www.linkedin.com/legal/privacy-policy?trk=%7Berror-page%7D-privacy-policy',
+                    settingsurl: 'https://www.linkedin.com/psettings/',
+                    description: 'LinkedIn is a business and employment-oriented service that operates via websites and mobile apps.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"LinkedIn\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'PayPal',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://www.paypal.com/us/webapps/mpp/ua/privacy-full',
+                    settingsurl: 'https://www.paypal.com/myaccount/settings/security',
+                    description: 'PayPal Holdings, Inc. is an American company operating a worldwide online payments system that supports online money transfers and serves as an electronic alternative to traditional paper methods like checks and money orders.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"PayPal\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Pinterest',
+                    permissions: ["NAME", "COARSE_LOCATION", "PHOTOS", "PURCHASE_HISTORY", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://policy.pinterest.com/en/privacy-policy',
+                    settingsurl: 'https://www.pinterest.com/settings#security',
+                    description: 'Pinterest, Inc. is a social media web and mobile application company that operates a software system designed to discover information on the World Wide Web, mainly using images and, on a smaller scale, GIFs and videos.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Pinterest\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Soundcloud',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "RECORDED_AUDIO", "HARDWARE_IDENTIFIERS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://soundcloud.com/pages/privacy',
+                    settingsurl: 'https://soundcloud.com/settings',
+                    description: 'SoundCloud is an online audio distribution platform and music sharing website based in Berlin, Germany that enables its users to upload, promote, and share audio.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Soundcloud\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Tumblr',
+                    permissions: ["COARSE_LOCATION", "CAMERA", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://www.tumblr.com/privacy/en',
+                    settingsurl: 'https://www.tumblr.com/settings/account',
+                    description: 'Tumblr is a microblogging and social networking website founded by David Karp in 2007 and owned by Verizon Media.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Tumblr\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Twitter',
+                    permissions: ["NAME", "BIRTH_DATE", "COARSE_LOCATION", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "PHOTOS", "CONTACTS", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://twitter.com/en/privacy',
+                    settingsurl: 'https://twitter.com/settings/account',
+                    description: 'Twitter is an American online news and social networking service on which users post and interact with messages known as "tweets".'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Twitter\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Vimeo',
+                    permissions: ["NAME", "COARSE_LOCATION", "MICROPHONE", "RECORDED_AUDIO", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "AD_ENGAGEMENT", "WEB_HISTORY"],
+                    policyurl: 'https://vimeo.com/privacy',
+                    settingsurl: 'https://vimeo.com/settings/account/privacy',
+                    description: 'Vimeo is an ad-free open video platform that is headquartered in New York City. The company provides creators with tools and technology to host, distribute and monetize videos.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Vimeo\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Windows',
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://privacy.microsoft.com/en-us',
+                    settingsurl: 'https://account.microsoft.com/security',
+                    description: 'Microsoft Windows is a group of several graphical operating system families, all of which are developed, marketed, and sold by Microsoft.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Windows\" already exists in DB.");
+            });
+            dbPromise.then(function (db) {
+                const tx = db.transaction('sites', 'readwrite');
+                const store = tx.objectStore('sites');
+                let item = {
+                    name: 'Youtube',
+                    permissions: ["NAME", "BIRTH_DATE", "FINE_LOCATION", "COARSE_LOCATION", "CAMERA", "PHOTOS", "MICROPHONE", "RECORDED_AUDIO", "RACE", "POLITICAL_VIEWS", "SMS_HISTORY", "CALL_HISTORY", "CONTACTS", "PURCHASE_HISTORY", "CREDIT_SCORE", "SSN", "CHECKING_ACCOUNT", "CREDIT_CARD_NUMBER", "HARDWARE_IDENTIFIERS", "PHONE_NUMBER", "ADDRESS", "IP_ADDRESS", "BIOMETRIC_DATA", "RELATIONSHIPS", "AD_ENGAGEMENT", "VEHICLE_INFORMATION", "WEB_HISTORY"],
+                    policyurl: 'https://policies.google.com/privacy?hl=en',
+                    settingsurl: 'https://www.youtube.com/account_privacy',
+                    description: 'YouTube, LLC is an American video-sharing website headquartered in San Bruno, California.'
+                };
+                store.put(item);
+                return tx.complete;
+            }).catch(function () {
+                console.log("Service \"Youtube\" already exists in DB.");
+            });
+
+
+        })();
+        function toggleIcon(name) {
+            switch (name) {
+                case "android": {
+                    android = !android;
+                    if (android){
+                        document.getElementById("icon-android").src = "./img/sites/android-s.png";
+                    } else {
+                        document.getElementById("icon-android").src = "./img/sites/android.png";
+                    }
+                    break;
+                }
+                case "apple": {
+                    apple = !apple;
+                    if (apple){
+                        document.getElementById("icon-apple").src = "./img/sites/apple-s.png";
+                    } else {
+                        document.getElementById("icon-apple").src = "./img/sites/apple.png";
+                    }
+                    break;
+                }
+                case "facebook": {
+                    facebook = !facebook;
+                    if (facebook){
+                        document.getElementById("icon-facebook").src = "./img/sites/facebook-s.png";
+                    } else {
+                        document.getElementById("icon-facebook").src = "./img/sites/facebook.png";
+                    }
+                    break;
+                }
+                case "instagram": {
+                    instagram = !instagram;
+                    if (instagram){
+                        document.getElementById("icon-instagram").src = "./img/sites/instagram-s.png";
+                    } else {
+                        document.getElementById("icon-instagram").src = "./img/sites/instagram.png";
+                    }
+                    break;
+                }
+                case "linkedin": {
+                    linkedin = !linkedin;
+                    if (linkedin){
+                        document.getElementById("icon-linkedin").src = "./img/sites/linkedin-s.png";
+                    } else {
+                        document.getElementById("icon-linkedin").src = "./img/sites/linkedin.png";
+                    }
+                    break;
+                }
+                case "paypal": {
+                    paypal = !paypal;
+                    if (paypal){
+                        document.getElementById("icon-paypal").src = "./img/sites/paypal-s.png";
+                    } else {
+                        document.getElementById("icon-paypal").src = "./img/sites/paypal.png";
+                    }
+                    break;
+                }
+                case "pinterest": {
+                    pinterest = !pinterest;
+                    if (pinterest){
+                        document.getElementById("icon-pinterest").src = "./img/sites/pinterest-s.png";
+                    } else {
+                        document.getElementById("icon-pinterest").src = "./img/sites/pinterest.png";
+                    }
+                    break;
+                }
+                case "soundcloud": {
+                    soundcloud = !soundcloud;
+                    if (soundcloud){
+                        document.getElementById("icon-soundcloud").src = "./img/sites/soundcloud-s.png";
+                    } else {
+                        document.getElementById("icon-soundcloud").src = "./img/sites/soundcloud.png";
+                    }
+                    break;
+                }
+                case "tumblr": {
+                    tumblr = !tumblr;
+                    if (tumblr){
+                        document.getElementById("icon-tumblr").src = "./img/sites/tumblr-s.png";
+                    } else {
+                        document.getElementById("icon-tumblr").src = "./img/sites/tumblr.png";
+                    }
+                    break;
+                }
+                case "twitter": {
+                    twitter = !twitter;
+                    if (twitter){
+                        document.getElementById("icon-twitter").src = "./img/sites/twitter-s.png";
+                    } else {
+                        document.getElementById("icon-twitter").src = "./img/sites/twitter.png";
+                    }
+                    break;
+                }
+                case "vimeo": {
+                    vimeo = !vimeo;
+                    if (vimeo){
+                        document.getElementById("icon-vimeo").src = "./img/sites/vimeo-s.png";
+                    } else {
+                        document.getElementById("icon-vimeo").src = "./img/sites/vimeo.png";
+                    }
+                    break;
+                }
+                case "windows": {
+                    windows = !windows;
+                    if (windows){
+                        document.getElementById("icon-windows").src = "./img/sites/windows-s.png";
+                    } else {
+                        document.getElementById("icon-windows").src = "./img/sites/windows.png";
+                    }
+                    break;
+                }
+                case "youtube": {
+                    youtube = !youtube;
+                    if (youtube){
+                        document.getElementById("icon-youtube").src = "./img/sites/youtube-s.png";
+                    } else {
+                        document.getElementById("icon-youtube").src = "./img/sites/youtube.png";
+                    }
+                    break;
+                }
+            }
+        }
+        function markPermissions(){
+            if (android) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=true;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+
+            }
+            if (apple) {
+                NAME=true;
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=false;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=false;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=false;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=false;
+            }
+            if (facebook) {
+                NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+            }
+            if (instagram) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+            }
+            if (linkedin) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=true;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIERS=false;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+            }
+            if (paypal) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+            }
+            if (pinterest) {
+                NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=false;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+            }
+            if (soundcloud) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=true;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=false;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=false;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+
+            }
+            if (tumblr) {
+                NAME=false;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=false;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+
+            }
+            if (twitter) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=false;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=false;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=false;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+            }
+            if (vimeo) {
+                NAME=true;
+                BIRTH_DATE=false;
+                FINE_LOCATION=false;
+                COARSE_LOCATION=true;
+                CAMERA=false;
+                PHOTOS=false;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=false;
+                CALL_HISTORY=false;
+                CONTACTS=false;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=false;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=false;
+                WEB_HISTORY=true;
+
+            }
+            if (windows) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=false;
+                MICROPHONE=false;
+                RECORDED_AUDIO=false;
+                RACE=false;
+                POLITICAL_VIEWS=false;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=false;
+                SSN=false;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=false;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+            }
+            if (youtube) {
+                NAME=true;
+                BIRTH_DATE=true;
+                FINE_LOCATION=true;
+                COARSE_LOCATION=true;
+                CAMERA=true;
+                PHOTOS=true;
+                MICROPHONE=true;
+                RECORDED_AUDIO=true;
+                RACE=true;
+                POLITICAL_VIEWS=true;
+                SMS_HISTORY=true;
+                CALL_HISTORY=true;
+                CONTACTS=true;
+                PURCHASE_HISTORY=true;
+                CREDIT_SCORE=true;
+                SSN=true;
+                CHECKING_ACCOUNT=true;
+                CREDIT_CARD_NUMBER=true;
+                HARDWARE_IDENTIFIERS=true;
+                PHONE_NUMBER=true;
+                ADDRESS=true;
+                IP_ADDRESS=true;
+                BIOMETRIC_DATA=true;
+                RELATIONSHIPS=true;
+                AD_ENGAGEMENT=true;
+                VEHICLE_INFORMATION=true;
+                WEB_HISTORY=true;
+
+            }
+        }
+        function generateTagCloud(array){
+            let string = "";
+            if (array.includes("NAME")) {
+                string = string + "<a class=\"tag t-1\"><strong>NAME</strong></a>";
+            }
+            if (array.includes("BIRTH_DATE")) {
+                string = string + "<a class=\"tag t-1\"><strong>BIRTH_DATE</strong></a>";
+            }
+            if (array.includes("FINE_LOCATION")) {
+                string = string + "<a class=\"tag t-3\"><strong>FINE_LOCATION</strong></a>";
+            }
+            if (array.includes("COARSE_LOCATION")) {
+                string = string + "<a class=\"tag t-3\"><strong>COARSE_LOCATION</strong></a>";
+            }
+            if (array.includes("CAMERA")) {
+                string = string + "<a class=\"tag t-2\"><strong>CAMERA</strong></a>";
+            }
+            if (array.includes("PHOTOS")) {
+                string = string + "<a class=\"tag t-3\"><strong>PHOTOS</strong></a>";
+            }
+            if (array.includes("MICROPHONE")) {
+                string = string + "<a class=\"tag t-3\"><strong>MICROPHONE</strong></a>";
+            }
+            if (array.includes("RECORDED_AUDIO")) {
+                string = string + "<a class=\"tag t-3\"><strong>RECORDED_AUDIO</strong></a>";
+            }
+            if (array.includes("RACE")) {
+                string = string + "<a class=\"tag t-1\"><strong>RACE</strong></a>";
+            }
+            if (array.includes("POLITICAL_VIEWS")) {
+                string = string + "<a class=\"tag t-2\"><strong>POLITICAL_VIEWS</strong></a>";
+            }
+            if (array.includes("SMS_HISTORY")) {
+                string = string + "<a class=\"tag t-3\"><strong>SMS_HISTORY</strong></a>";
+            }
+            if (array.includes("CALL_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>CALL_HISTORY</strong></a>";
+            }
+            if (array.includes("CONTACTS")) {
+                string = string + "<a class=\"tag t-1\"><strong>CONTACTS</strong></a>";
+            }
+            if (array.includes("PURCHASE_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>PURCHASE_HISTORY</strong></a>";
+            }
+            if (array.includes("CREDIT_SCORE")) {
+                string = string + "<a class=\"tag t-2\"><strong>CREDIT_SCORE</strong></a>";
+            }
+            if (array.includes("SSN")) {
+                string = string + "<a class=\"tag t-3\"><strong>SSN</strong></a>";
+            }
+            if (array.includes("CHECKING_ACCOUNT")) {
+                string = string + "<a class=\"tag t-3\"><strong>CHECKING_ACCOUNT</strong></a>";
+            }
+            if (array.includes("CREDIT_CARD_NUMBER")) {
+                string = string + "<a class=\"tag t-2\"><strong>CREDIT_CARD_NUMBER</strong></a>";
+            }
+            if (array.includes("HARDWARE_IDENTIFIERS")) {
+                string = string + "<a class=\"tag t-1\"><strong>HARDWARE_IDENTIFIERS</strong></a>";
+            }
+            if (array.includes("PHONE_NUMBER")) {
+                string = string + "<a class=\"tag t-1\"><strong>PHONE_NUMBER</strong></a>";
+            }
+            if (array.includes("ADDRESS")) {
+                string = string + "<a class=\"tag t-2\"><strong>ADDRESS</strong></a>";
+            }
+            if (array.includes("IP_ADDRESS")) {
+                string = string + "<a class=\"tag t-1\"><strong>IP_ADDRESS</strong></a>";
+            }
+            if (array.includes("BIOMETRIC_DATA")) {
+                string = string + "<a class=\"tag t-3\"><strong>BIOMETRIC_DATA</strong></a>";
+            }
+            if (array.includes("RELATIONSHIPS")) {
+                string = string + "<a class=\"tag t-2\"><strong>RELATIONSHIPS</strong></a>";
+            }
+            if (array.includes("AD_ENGAGEMENT")) {
+                string = string + "<a class=\"tag t-1\"><strong>AD_ENGAGEMENT</strong></a>";
+            }
+            if (array.includes("VEHICLE_INFORMATION")) {
+                string = string + "<a class=\"tag t-2\"><strong>VEHICLE_INFORMATION</strong></a>";
+            }
+            if (array.includes("WEB_HISTORY")) {
+                string = string + "<a class=\"tag t-2\"><strong>WEB_HISTORY</strong></a>";
+            }
+            return string;
+        }
+        function generateSiteCloud(permission){
+            let string = "";
+            //TODO for site in sites, search db for permission - > if found, add image
+        }
+
+        function displayPermissions(mode){
+            document.getElementById("home").style.display = "none";
+            document.getElementById("results-universal").style.display = "flex";
+            const dbPromise = idb.open('eula-db', 1, upgradeDb => {
+                if (!upgradeDb.objectStoreNames.contains('permissions')) {
+                    let permissionsOS = upgradeDb.createObjectStore('permissions', {keyPath: 'name'});
+                    permissionsOS.createIndex('name', 'name', {unique: true});
+                    permissionsOS.createIndex('severity', 'severity', {unique: false});
+                    permissionsOS.createIndex('description', 'description');
+                    permissionsOS.createIndex('hardware', 'hardware', {unique: false});
+                }
+                if (!upgradeDb.objectStoreNames.contains('sites')) {
+                    let sitesOS = upgradeDb.createObjectStore('sites', {keyPath: 'name'});
+                    sitesOS.createIndex('name', 'name', {unique: true});
+                    sitesOS.createIndex('permissions', 'permissions');
+                    sitesOS.createIndex('policyurl', 'policyurl');
+                    sitesOS.createIndex('settingsurl', 'settingsurl');
+                    sitesOS.createIndex('description', 'description');
+                }
+            });
+            switch (mode) {
+                case 1: {
+                    document.getElementById("results-sites").style.display = "none";
+                    document.getElementById("results-permissions").style.display = "flex";
+                    if (!document.getElementById("results-permissions").innerHTML.includes("<")){
+                        //TODO generate permissions cards
+                        let innerhtml = "";
+                        if (NAME){
+                            dbPromise.then(db => {
+                                return db.transaction('permissions')
+                                    .objectStore('permissions').get("Name");
+                            }).then(obj => {
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-lt ";
+                                switch (obj.severity){
+                                    case 1: {
+                                        innerhtml = innerhtml + "t-1\">";
+                                        break;
+                                    }
+                                    case 2: {
+                                        innerhtml = innerhtml + "t-2\">";
+                                        break;
+                                    }
+                                    case 3: {
+                                        innerhtml = innerhtml + "t-3\">";
+                                        break;
+                                    }
+                                    default: {
+                                        alert("Something went wrong.");
+                                        break;
+                                    }
+                                }
+                                innerhtml = innerhtml + obj.name.toUpperCase().replace(" ", "_");
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateSiteCloud(obj.name.toUpperCase().replace(" ", "_"));
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-permissions").innerHTML = document.getElementById("results-permissions").innerHTML + innerhtml;
+                            });
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    document.getElementById("results-sites").style.display = "flex";
+                    document.getElementById("results-permissions").style.display = "none";
+                    if (!document.getElementById("results-sites").innerHTML.includes("<")){
+                        if (android){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Android");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (apple){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Apple");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (facebook){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Facebook");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (instagram){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Instagram");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (linkedin){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("LinkedIn");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (paypal){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("PayPal");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (pinterest){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Pinterest");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (soundcloud){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Soundcloud");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (tumblr){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Tumblr");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (twitter){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Twitter");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (vimeo){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Vimeo");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (windows){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Windows");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                        if (youtube){
+                            dbPromise.then(db => {
+                                return db.transaction('sites')
+                                    .objectStore('sites').get("Youtube");
+                            }).then(obj => {
+                                let innerhtml = "";
+                                innerhtml = innerhtml + "<div class=\"card\"><h4 class=\"card-title\">";
+                                innerhtml = innerhtml + obj.name;
+                                innerhtml = innerhtml + "</h4><p class=\"blurb\">";
+                                innerhtml = innerhtml + obj.description;
+                                innerhtml = innerhtml + "</p><div class=\"card-centered-container\"><a class=\"settings-button\" target=\"_blank\" href=\"";
+                                innerhtml = innerhtml + obj.settingsurl;
+                                innerhtml = innerhtml + "\"><p>Settings</p></a><div class=\"tag-cloud\">";
+                                innerhtml = innerhtml + generateTagCloud(obj.permissions);
+                                innerhtml = innerhtml + "</div></div></div>";
+                                return innerhtml;
+                            }).then(innerhtml => {
+                                document.getElementById("results-sites").innerHTML = document.getElementById("results-sites").innerHTML + innerhtml;
+                                innerhtml = "";
+                            });
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    alert("Something went wrong.");
+                    break;
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/img/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#000000">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="./img/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./img/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./img/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./img/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#000000">
+    <link rel="shortcut icon" href="./img/favicon.ico">
     <style>
-        html, body, div, h1, h2, p, img, a, svg {
-            margin:0;
-            padding:0;
+        html, footer, body, div, h1, h2, h3, h4, h5, h6, p, img, a, svg {
+            margin: 0;
+            padding: 0;
             font-family: 'Roboto Slab', serif;
         }
         body {
             background-color: ghostwhite;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100vw;
+            height: 100vh;
+        }
+        p {
+            color: black;
+            text-align: center;
+        }
+        .fw-text {
+            width: 100vw;
+            font-size: 6vw;
+            min-font-size: 12pt;
+        }
+        .first-el {
+            margin-top:3vh;
+        }
+        .icon-container {
+            display:flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100vw;
+            max-width:1200px;
+            height: calc(100vw - 9vh);
+            margin-top:3vh;
+            margin-bottom:3vh;
+        }
+        .site-icon {
+            width: 40vw;
+            height: 40vw;
+            max-height: 150px;
+            max-width: 150px;
+            margin: 15px;
+        }
+        #home, #results-universal {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+        #home {
+            display: flex;
+        }
+        #results-universal {
+            display: none;
+        }
+        #results-tabs {
+            width:100vw;
+            float: bottom;
+            height:10vh;
+            display:none;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+        #results-tabs a {
+            flex-grow: 1;
+            flex-basis: auto;
+            background-color: black;
+            width:45vw;
+            max-width:48vw;
+            height:10vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+            text-decoration: none;
+        }
+        #results-tabs a p, .icon-container a p {
+            color:white;
+            font-size: calc(18pt + 1vw);
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+        }
+        .icon-container a {
+            background-color: black;
+            width: 90vw;
+            max-width: 300px;
+            height:10vh;
+            max-height: 100px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+            text-decoration: none;
+        }
+        .fw-div {
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+        }
+        #results-permissions, #results-sites {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: center;
+            text-decoration: none;
+        }
+        .card {
+            box-shadow: 2px 2px 6px grey;
+            border-radius: 8px;
+            padding: 15px;
+            margin:10px;
+            width:90vw;
+            max-width:800px;
+        }
+        .card-title {
+            font-size: calc(24pt + 1vw);
+            padding-bottom:10px;
+        }
+        .blurb {
+            font-size: calc(12pt + .3vw);
+            padding: 0 20px 20px 20px;
+        }
+        .card-centered-container {
+            width:100%;
+            text-align:center;
+        }
+        .settings-button {
+            background-color: black;
+            display: block;
+            max-width:300px;
+            margin: 0 auto 20px;
+            text-decoration: none;
+        }
+        .settings-button p {
+            color: white;
+            font-size: calc(18pt + 1vw);
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .tag-cloud {
+            width:100%;
+            min-width:100%;
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: CENTER;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+        .tag {
+            text-align:center;
+            border-radius:5px;
+            margin: 2px 6px 2px 6px;
+            padding: 2px 10px 2px 10px;
+            border:1px solid black;
+            text-decoration: none;
+        }
+        .t-3 {
+            background-color: #ce0200;
+            color: #3C1312;
+        }
+        .t-2 {
+            background-color: #BC9300;
+            color: #3C3312;
+        }
+        .t-1 {
+            background-color: #00B524;
+            color: #103618;
+        }
+        .res-img {
+            width:10vw;
+            min-width:100px;
+            max-width:300px;
+            height:10vw;
+            min-height:100px;
+            max-height:100px;
+        }
+        .card-lt {
+            font-size: calc(18pt + 1vw);
+            text-align:center;
+            border-radius:5px;
+            padding: 2px 10px 2px 10px;
+            border:1px solid black;
+            margin: 2px 20% 20px;
         }
     </style>
 </head>
 <body>
+    <div id="home">
+        <p class="fw-text first-el">Pick the websites you use</p>
+        <div class="icon-container">
+            <img class="site-icon" id="icon-android" src="./img/sites/android.png"  alt="Android" onclick="toggleIcon('android');"/>
+            <img class="site-icon" id="icon-apple" src="./img/sites/apple.png"  alt="Apple" onclick="toggleIcon('apple');"/>
+            <img class="site-icon" id="icon-facebook" src="./img/sites/facebook.png"  alt="Facebook" onclick="toggleIcon('facebook');"/>
+            <img class="site-icon" id="icon-instagram" src="./img/sites/instagram.png"  alt="Instagram" onclick="toggleIcon('instagram');"/>
+            <img class="site-icon" id="icon-linkedin" src="./img/sites/linkedin.png"  alt="LinkedIn" onclick="toggleIcon('linkedin');"/>
+            <img class="site-icon" id="icon-paypal" src="./img/sites/paypal.png"  alt="PayPal" onclick="toggleIcon('paypal');"/>
+            <img class="site-icon" id="icon-pinterest" src="./img/sites/pinterest.png"  alt="Pinterest" onclick="toggleIcon('pinterest');"/>
+            <img class="site-icon" id="icon-soundcloud" src="./img/sites/soundcloud.png" alt="SoundCloud" onclick="toggleIcon('soundcloud');"/>
+            <img class="site-icon" id="icon-tumblr" src="./img/sites/tumblr.png"  alt="Tumblr" onclick="toggleIcon('tumblr');"/>
+            <img class="site-icon" id="icon-twitter" src="./img/sites/twitter.png"  alt="Twitter" onclick="toggleIcon('twitter');"/>
+            <img class="site-icon" id="icon-vimeo" src="./img/sites/vimeo.png"  alt="Vimeo" onclick="toggleIcon('vimeo');"/>
+            <img class="site-icon" id="icon-windows" src="./img/sites/windows.png"  alt="Windows" onclick="toggleIcon('windows');"/>
+            <img class="site-icon" id="icon-youtube" src="./img/sites/youtube.png"  alt="YouTube" onclick="toggleIcon('youtube');"/>
+            <div class="fw-div"><a href="#" onclick="markPermissions();displayPermissions(2);"><p>Calculate</p></a></div>
+        </div>
+    </div>
+    <div id="results-universal">
+        <div id="results-permissions">
 
+        </div>
+        <div id="results-sites">
+
+        </div>
+        <footer id="results-tabs">
+            <a href="#" onclick="displayPermissions(1);"><p>Permissions</p></a>
+            <a href="#" onclick="displayPermissions(2);"><p>Sites</p></a>
+        </footer>
+    </div>
 </body>
 </html>
